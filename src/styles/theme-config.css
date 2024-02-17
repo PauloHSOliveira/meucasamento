@@ -1,0 +1,70 @@
+/* Reset básico para Radix */
+
+/* Box sizing reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remover margens e preenchimento padrão */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+/* Lista sem estilos */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remover decoração de link padrão */
+a {
+  text-decoration: none;
+}
+
+/* Remover estilos padrão de formulário */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Remover borda padrão em elementos do formulário */
+button,
+input {
+  border: none;
+}
+
+/* Remover margem no body */
+body {
+  margin: 0;
+}
+
+/* Definir fonte base e tamanho */
+
+/* Opcional: Definir altura mínima para a área de visualização */
+body,
+html,
+#__next {
+  min-height: 100dvh;
+}
