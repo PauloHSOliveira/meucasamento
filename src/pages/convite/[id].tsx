@@ -1,23 +1,19 @@
 import { Flex, Text, Avatar, Checkbox, Box, Button } from '@radix-ui/themes';
 import React from 'react';
 import { UsersThree, Stool } from '@phosphor-icons/react';
-
-import { Junge } from 'next/font/google';
-
-const junge = Junge({ weight: '400', subsets: ['latin'] });
-
-// import { Container } from './styles';
+import { junge } from '@/assets/fonts';
 
 const Convite: React.FC = () => {
   return (
     <Flex
       justify='between'
-      p='6'
       direction='column'
       height='100%'
       className={junge.className}
+      py='4'
+      px='2'
     >
-      <Flex direction='column' align='center' gap='4'>
+      <Flex direction='column' align='center' gap='4' p='6'>
         <Text size='8'>Luana e Paulo</Text>
 
         <Flex width='100%' justify='between' align='center'>
@@ -37,7 +33,7 @@ const Convite: React.FC = () => {
               <Avatar size='5' fallback='EO' />
               <Flex direction='column'>
                 <Text>Elzimare Oliveira</Text>
-                <Text>Mãe</Text>
+                <Text weight='bold'>Mãe</Text>
               </Flex>
             </Flex>
             <Box>
