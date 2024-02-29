@@ -1,54 +1,69 @@
-import { Flex, Text, Avatar, Checkbox, Box, Button } from '@radix-ui/themes';
+import {
+  Flex,
+  Text,
+  Avatar,
+  Checkbox,
+  Box,
+  Button,
+  VStack,
+  Heading,
+  HStack,
+  Container,
+} from '@chakra-ui/react';
 import React from 'react';
 import { UsersThree, Stool } from '@phosphor-icons/react';
 import { junge } from '@/assets/fonts';
 
 const Convite: React.FC = () => {
   return (
-    <Flex
-      justify='between'
-      direction='column'
-      height='100%'
-      className={junge.className}
-      py='4'
-      px='2'
-    >
-      <Flex direction='column' align='center' gap='4' p='6'>
-        <Text size='8'>Luana e Paulo</Text>
+    <Container height='100dvh' p={8} borderWidth={1}>
+      <VStack justifyContent='space-between' height='full'>
+        <VStack alignItems='center' height='full' width='full' gap={8}>
+          <Heading style={junge.style}>Luana e Paulo</Heading>
 
-        <Flex width='100%' justify='between' align='center'>
-          <Flex align='center' gap='1'>
-            <UsersThree />
-            <Text>Familia - Noivo</Text>
-          </Flex>
-          <Flex align='center' gap='1'>
-            <Text>Mesa - Pais</Text>
-            <Stool />
-          </Flex>
-        </Flex>
+          <HStack
+            width='100%'
+            justifyContent='space-between'
+            alignItems='center'
+            fontSize='medium'
+          >
+            <HStack alignItems='center'>
+              <UsersThree />
+              <Text style={junge.style}>Familia - Noivo</Text>
+            </HStack>
+            <HStack alignItems='center'>
+              <Text style={junge.style}>Mesa - Pais</Text>
+              <Stool />
+            </HStack>
+          </HStack>
 
-        <Flex direction='column' width='100%' mt='6'>
-          <Flex justify='between' width='100%' align='center'>
-            <Flex gap='2' align='center'>
-              <Avatar size='5' fallback='EO' />
-              <Flex direction='column'>
-                <Text>Elzimare Oliveira</Text>
-                <Text weight='bold'>Mãe</Text>
-              </Flex>
+          <VStack width='100%'>
+            <Flex
+              justifyContent='space-between'
+              width='100%'
+              alignItems='center'
+            >
+              <HStack alignItems='center' gap={4}>
+                <Avatar />
+                <VStack alignItems='start'>
+                  <Text style={junge.style}>Elzimare Oliveira</Text>
+                  <Text style={junge.style}>Mãe</Text>
+                </VStack>
+              </HStack>
+              <Box>
+                <Checkbox defaultChecked={true} />
+              </Box>
             </Flex>
-            <Box>
-              <Checkbox size='3' defaultChecked={true} />
-            </Box>
-          </Flex>
-        </Flex>
-      </Flex>
+          </VStack>
+        </VStack>
 
-      <Box width='100%'>
-        <Button style={{ width: '100%' }} size='4'>
-          Confirmar
-        </Button>
-      </Box>
-    </Flex>
+        <Box width='100%'>
+          <Button width='full' size='lg' colorScheme='purple'>
+            Confirmar
+          </Button>
+        </Box>
+      </VStack>
+    </Container>
   );
 };
 

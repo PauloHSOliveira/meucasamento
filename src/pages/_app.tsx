@@ -1,15 +1,16 @@
 import '@/styles/theme-config.css';
 import '@radix-ui/themes/styles.css';
 import type { AppProps } from 'next/app';
-import { Theme } from '@radix-ui/themes';
+
+import { ChakraProvider } from '@chakra-ui/react';
 import { AuthProvider } from '@/providers/Auth';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <Theme style={{ height: '100dvh' }}>
+    <ChakraProvider>
+      <AuthProvider>
         <Component {...pageProps} />
-      </Theme>
-    </AuthProvider>
+      </AuthProvider>
+    </ChakraProvider>
   );
 }

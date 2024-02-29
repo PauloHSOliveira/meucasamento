@@ -1,14 +1,16 @@
 import TextInput from '@/components/form/TextInput';
-import { Button, Flex, Heading } from '@radix-ui/themes';
+import { Button, Heading, VStack, useToast } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Lock, EnvelopeSimple } from '@phosphor-icons/react';
 import { useAuth } from '@/providers/Auth';
-import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { ScaleLoader } from 'react-spinners';
+import { junge } from '@/assets/fonts';
 
 const Login: React.FC = () => {
+  const toast = useToast();
+
   const router = useRouter();
   const { signIn } = useAuth();
 
@@ -25,44 +27,36 @@ const Login: React.FC = () => {
 
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
-      console.log(data);
       await signIn(data.email, data.password);
-
-      toast.success('Logado com Sucesso');
 
       router.push('/admin/meucasamento/convidados');
     } catch (error) {
-      toast.error('Erro ao realizar login');
+      toast({
+        description: 'Erro ao realizar login',
+        status: 'error',
+      });
     }
   };
 
   return (
-    <Flex
-      direction='column'
-      style={{ width: '100dvw', height: '100dvh' }}
-      align='center'
-      justify='center'
-    >
-      <Flex direction='column' gap='4'>
-        <Heading>Meu Casamento - Login</Heading>
+    <VStack alignItems='center' justifyContent='center' height='100dvh'>
+      <VStack gap={8}>
+        <Heading style={junge.style}>Meu Casamento - Login</Heading>
 
-        <Flex
-          direction='column'
-          p='4'
-          justify='between'
-          gap='8'
-          style={{
-            width: '30rem',
-            border: '1px solid gray',
-            borderRadius: '0.5rem',
-          }}
+        <VStack
+          width='lg'
+          gap={8}
+          borderWidth={1}
+          padding={8}
+          borderRadius='lg'
         >
-          <Flex direction='column' width='100%' gap='4'>
+          <VStack width='full' gap={4}>
             <TextInput
               control={control}
               name='email'
               label='E-mail'
               icon={<EnvelopeSimple />}
+              size='lg'
             />
             <TextInput
               control={control}
@@ -70,14 +64,20 @@ const Login: React.FC = () => {
               label='Senha'
               isPassword
               icon={<Lock />}
+              size='lg'
             />
-          </Flex>
-          <Button onClick={handleSubmit(onSubmit)} size='3'>
+          </VStack>
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            width='full'
+            colorScheme='green'
+            size='lg'
+          >
             {isSubmitting ? <ScaleLoader /> : 'Login'}
           </Button>
-        </Flex>
-      </Flex>
-    </Flex>
+        </VStack>
+      </VStack>
+    </VStack>
   );
 };
 

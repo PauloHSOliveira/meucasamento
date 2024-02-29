@@ -1,4 +1,4 @@
-import { Flex, Text, Button } from '@radix-ui/themes';
+import { Flex, Text, Button } from '@chakra-ui/react';
 
 export default function Home() {
   return (

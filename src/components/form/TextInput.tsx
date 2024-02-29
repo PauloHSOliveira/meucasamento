@@ -1,4 +1,16 @@
-import { Flex, TextField, Text, IconButton } from '@radix-ui/themes';
+import {
+  Flex,
+  Text,
+  IconButton,
+  Input,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  InputProps,
+} from '@chakra-ui/react';
 import React, { ReactNode, useState } from 'react';
 import { Control, FieldValues, Path, useController } from 'react-hook-form';
 import { Eye, EyeClosed } from '@phosphor-icons/react';
@@ -7,16 +19,19 @@ type IInputProps<T extends FieldValues> = {
   control: Control<T>;
   name: Path<T>;
   label?: string;
+  helperText?: string;
   icon?: ReactNode;
   isPassword?: boolean;
-};
+} & InputProps;
 
 const TextInput = <T extends FieldValues>({
   control,
   name,
   label,
+  helperText,
   icon,
   isPassword,
+  ...rest
 }: IInputProps<T>) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -28,29 +43,30 @@ const TextInput = <T extends FieldValues>({
   const toggleShow = () => setShowPassword((old) => !old);
 
   return (
-    <Flex direction='column' width='100%'>
-      {label && (
-        <Text as='label' htmlFor={name}>
-          {label}
-        </Text>
-      )}
-      <TextField.Root>
-        {icon && <TextField.Slot>{icon}</TextField.Slot>}
-        <TextField.Input
-          size='3'
+    <FormControl>
+      {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+      <InputGroup>
+        {icon && <InputLeftElement height='full'>{icon}</InputLeftElement>}
+        <Input
           type={isPassword && !showPassword ? 'password' : 'text'}
           {...field}
+          {...rest}
         />
 
         {isPassword && (
-          <TextField.Slot>
-            <IconButton onClick={toggleShow}>
+          <InputRightElement height='full'>
+            <IconButton
+              onClick={toggleShow}
+              aria-label='Toggle Password Visibility'
+              height='full'
+            >
               {showPassword ? <Eye /> : <EyeClosed />}
             </IconButton>
-          </TextField.Slot>
+          </InputRightElement>
         )}
-      </TextField.Root>
-    </Flex>
+      </InputGroup>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+    </FormControl>
   );
 };
 
