@@ -33,14 +33,14 @@ const columns = [
   }),
 ];
 
-const Convidados: React.FC = () => {
+const Familias: React.FC = () => {
   const addInvitedModal = useDisclosure();
 
   const { control } = useForm();
 
   return (
     <>
-      <AuthLayout title='Convidados' activeRoute='invites'>
+      <AuthLayout title='Familias' activeRoute='families'>
         <VStack width='full' className={poppins.className} gap={4}>
           <HStack width='100%' justifyContent='space-between'>
             <Box width='100%'>
@@ -53,7 +53,7 @@ const Convidados: React.FC = () => {
             </Box>
             <Box>
               <Button colorScheme='green' onClick={addInvitedModal.onOpen}>
-                Adicionar Convidado
+                Adicionar Familia
               </Button>
             </Box>
           </HStack>
@@ -90,4 +90,4 @@ const Convidados: React.FC = () => {
   );
 };
 
-export default Convidados;
+export default Familias;

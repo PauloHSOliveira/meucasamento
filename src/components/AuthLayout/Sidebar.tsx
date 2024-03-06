@@ -9,15 +9,26 @@ import {
   Text,
   useBreakpointValue,
 } from '@chakra-ui/react';
-import { X, UsersThree, Heart } from '@phosphor-icons/react';
+import { Ticket, UsersThree, Heart } from '@phosphor-icons/react';
 import { junge } from '@/assets/fonts';
 import Link from 'next/link';
 
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const sidebarItems = [
+  {
+    label: 'Convidados',
+    path: '/admin/meucasamento/convidados',
+    icon: <Ticket size={24} />,
+    routeName: 'invites',
+  },
+  {
+    label: 'Familias',
+    path: '/admin/meucasamento/familias',
+    icon: <UsersThree size={24} />,
+    routeName: 'families',
+  },
+];
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
-
+const Sidebar = ({ activeRoute }: { activeRoute: 'families' | 'invites' }) => {
   const sidebarWidth = useBreakpointValue({ base: '60px', md: '300px' });
 
   return (
@@ -25,7 +36,6 @@ const Sidebar = () => {
       as='nav'
       width={sidebarWidth}
       overflow='auto'
-      transition='width 0.2s ease'
       height='full'
       borderWidth={1}
     >
@@ -36,19 +46,24 @@ const Sidebar = () => {
           </Heading>
           <Heart size={30} color='red' />
         </HStack>
-        {/* <IconButton
-          icon={<X />}
-          onClick={toggleSidebar}
-          aria-label='Toggle Sidebar'
-        /> */}
       </Flex>
       <Stack spacing={4} p={4}>
-        <Link href='/admin/meucasamento/convidados'>
-          <HStack>
-            <UsersThree size={24} />
-            <Text>Convidados</Text>
-          </HStack>
-        </Link>
+        {sidebarItems.map((item) => (
+          <Box
+            key={item.path}
+            borderWidth={activeRoute === item.routeName ? 1 : 0}
+            borderColor='red'
+            padding={2}
+            borderRadius='lg'
+          >
+            <Link href={item.path}>
+              <HStack>
+                {item.icon}
+                <Text>{item.label}</Text>
+              </HStack>
+            </Link>
+          </Box>
+        ))}
       </Stack>
     </Box>
   );
