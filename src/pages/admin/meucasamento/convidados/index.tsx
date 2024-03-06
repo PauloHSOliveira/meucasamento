@@ -2,12 +2,10 @@ import { junge, poppins } from '@/assets/fonts';
 import DataTable from '@/components/DataTable/DataTable';
 import {
   Box,
-  Text,
   Button,
   VStack,
   HStack,
   Heading,
-  Modal,
   useDisclosure,
 } from '@chakra-ui/react';
 import React from 'react';
@@ -15,6 +13,25 @@ import AuthLayout from '@/components/AuthLayout/AuthLayout';
 import ModalComponent from '@/components/ModalComponent/ModalComponent';
 import InviteForm from '@/modules/invites/components/forms/InviteForm';
 import { useForm } from 'react-hook-form';
+import { createColumnHelper } from '@tanstack/react-table';
+
+type Invite = {
+  name: string;
+  family: string;
+};
+
+const invitesColumnHelpers = createColumnHelper<Invite>();
+
+const columns = [
+  invitesColumnHelpers.accessor('family', {
+    header: 'Nome',
+    cell: (info) => info.getValue(),
+  }),
+  invitesColumnHelpers.accessor('family', {
+    header: 'Familia',
+    cell: (info) => info.getValue(),
+  }),
+];
 
 const Convidados: React.FC = () => {
   const addInvitedModal = useDisclosure();
@@ -41,7 +58,7 @@ const Convidados: React.FC = () => {
             </Box>
           </HStack>
           <Box width='full'>
-            <DataTable />
+            <DataTable columns={columns} data={[]} />
           </Box>
         </VStack>
       </AuthLayout>

@@ -1,31 +1,67 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
+import {
+  ColumnDef,
+  SortingState,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
 import { Table, Tbody, Tr, Th, Td, Thead, Box } from '@chakra-ui/react';
 
-const DataTable: React.FC = () => {
+interface DataTableProps<T> {
+  columns: ColumnDef<T, any>[];
+  data: T[];
+}
+
+function DataTable<T>({ columns, data }: DataTableProps<T>) {
+  const [sorting, setSorting] = useState<SortingState>([]);
+
+  const table = useReactTable({
+    columns,
+    data,
+    getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    getRowId: (row: any) => row.id,
+    state: {
+      sorting,
+    },
+  });
+
+  const headerGroups = useMemo(() => table.getHeaderGroups(), []);
+
   return (
     <Box borderWidth={1} borderRadius='lg' height='full'>
       <Table variant='simple' height='full'>
         <Thead>
-          <Tr>
-            <Th>Nome</Th>
-            <Th>Familia</Th>
-            <Th>Mesa</Th>
-            <Th>Confirmação</Th>
-            <Th>Ações</Th>
-          </Tr>
+          {headerGroups.map((headerGroup) => (
+            <Tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <Th key={header.id}>
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
+                </Th>
+              ))}
+            </Tr>
+          ))}
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>Elzimare Oliveira</Td>
-            <Td>Noivo</Td>
-            <Td>Pais</Td>
-            <Td>Sim</Td>
-            <Td></Td>
-          </Tr>
+          {table.getRowModel().rows.map((row) => (
+            <Tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <Td key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </Td>
+              ))}
+            </Tr>
+          ))}
         </Tbody>
       </Table>
     </Box>
   );
-};
+}
 
 export default DataTable;
